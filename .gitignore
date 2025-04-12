@@ -1,0 +1,30 @@
+# Django
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.sqlite3
+db.sqlite3
+/media/
+/staticfiles/
+/.env
+.env.*
+
+# JetBrains (PyCharm, etc.)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+pythonProject/
+

@@ -1,0 +1,72 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Price Calculator | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link href="{% static 'css/price-calculator.css' %}" rel="stylesheet">
+  <style>
+    #calculator-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Make sure it's responsive on mobile */
+    @media (max-width: 767px) {
+      #calculator-container {
+        margin-left: 0 !important;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div id="calculator-container">
+  <h1>Power Washing Price Calculator</h1>
+  <p class="help">Use this calculator to generate quotes for customers. Pricing is based on the currently active service pricing configuration.</p>
+  
+  <!-- React app will be mounted here -->
+  <div id="price-calculator-root"></div>
+  
+  <!-- Current pricing configuration data -->
+  <script>
+    // Pass the Django model data to JavaScript
+    window.pricingConfig = {
+      houseSqft: { 
+        label: "House", 
+        pricePerSqft: {{ pricing.house_sqft_price }}, 
+        unit: "sq.ft.",
+      },
+      driveway: { 
+        label: "Driveway", 
+        pricePerSqft: {{ pricing.driveway_sqft_price }}, 
+        pricePerCar: {{ pricing.driveway_car_price }}, 
+        unit: "sq.ft./cars",
+      },
+      patioDeck: { 
+        label: "Patio/Deck", 
+        pricePerSqft: {{ pricing.patio_deck_sqft_price }}, 
+        unit: "sq.ft.",
+      },
+      roofCleaning: { 
+        label: "Roof Cleaning", 
+        pricePerSqft: {{ pricing.roof_cleaning_sqft_price }}, 
+        unit: "sq.ft.",
+      },
+      gutterCleaning: { 
+        label: "Gutter Cleaning", 
+        priceFlat: {{ pricing.gutter_cleaning_flat_price }}, 
+        unit: "yes/no",
+      },
+      distance: { 
+        label: "Distance to Job", 
+        pricePerKm: {{ pricing.distance_price_per_km }}, 
+        unit: "km",
+      }
+    };
+  </script>
+  <script src="{% static 'js/price-calculator.js' %}"></script>
+</div>
+{% endblock %}

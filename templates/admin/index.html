@@ -1,0 +1,11 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block sidebar %}
+{{ block.super }}
+<div class="module">
+            <a href="{% url 'admin:price-calculator' %}" style="display: inline-block; background-color: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; margin-top: 8px;">
+                Price Calculator
+            </a>
+</div>
+{% endblock %}
